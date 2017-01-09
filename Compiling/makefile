@@ -12,8 +12,8 @@
 FC      = gfortran
 
 # 32-bit or 64-bit?
-BITS = 32
-#BITS = 64
+#BITS = 32
+BITS = 64
 
 #================================================================================#
 # if compiling FAST as a shared library, use
@@ -112,7 +112,7 @@ ifeq ($(OS),Windows_NT)
 else
 
    Registry     = $(FAST_DIR)/dependencies/registry.exe
-   MAP_lib      = $(BIN_DIR)/libmap-1.20.10.so
+   MAP_lib      = $(BIN_DIR)/libmap-1.20.10.dylib
 
      # skip the OrcaFlex interface, which seems to be causing issues with gfortran v5 on Mac (The OrcaFlex DLL is for Windows only, anyway)
    FFLAGS      := $(FFLAGS) -DNO_LibLoad
@@ -378,7 +378,7 @@ IceD_SOURCES =                 \
 	IceDyn_Types.f90            \
 	IceDyn.f90
 
-	
+
 ExtPtfm_SOURCES =               \
 	ExtPtfm_MCKF_Types.f90      \
 	ExtPtfm_MCKF.f90
@@ -502,7 +502,7 @@ $(Orca_DIR)/OrcaFlexInterface_Types.f90: $(Orca_DIR_Reg)/OrcaFlexInterface.txt
 $(ExtPtfm_DIR)/ExtPtfm_MCKF_Types.f90: $(ExtPtfm_DIR)/ExtPtfm_MCKF_Registry.txt
 	$(Registry) $< -I $(NWTC_Lib_DIR) -O $(Orca_DIR)
 
-	
+
    # InflowWind Registry files:
 $(IfW_DIR)/InflowWind_Types.f90: $(IfW_DIR_Reg)/InflowWind.txt
 	$(Registry) $< -I $(NWTC_Lib_DIR) -I $(IfW_DIR_Reg) -O $(IfW_DIR)
@@ -558,7 +558,7 @@ Lidar$(OBJ_EXT):                    NWTC_Library$(OBJ_EXT) Lidar_Types$(OBJ_EXT)
 InflowWind_Types$(OBJ_EXT):         NWTC_Library$(OBJ_EXT)  $(IfW_DIR)/InflowWind_Types.f90 \
                                     IfW_UniformWind_Types$(OBJ_EXT) IfW_HAWCWind_Types$(OBJ_EXT)  \
                                     IfW_TSFFWind_Types$(OBJ_EXT) IfW_BladedFFWind_Types$(OBJ_EXT) IfW_UserWind_Types$(OBJ_EXT) \
-                                    Lidar_Types$(OBJ_EXT) IfW_4Dext_Types$(OBJ_EXT)  
+                                    Lidar_Types$(OBJ_EXT) IfW_4Dext_Types$(OBJ_EXT)
 InflowWind_Subs$(OBJ_EXT):          NWTC_Library$(OBJ_EXT)  InflowWind_Types$(OBJ_EXT) IfW_UniformWind$(OBJ_EXT) \
                                       IfW_TSFFWind$(OBJ_EXT) IfW_BladedFFWind$(OBJ_EXT) IfW_UserWind$(OBJ_EXT) IfW_HAWCWind$(OBJ_EXT) \
                                       IfW_4Dext$(OBJ_EXT)
